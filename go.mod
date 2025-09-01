@@ -1,6 +1,6 @@
 module github.com/go-waitfor/waitfor-postgres
 
-go 1.21
+go 1.23
 
 require (
 	github.com/go-waitfor/waitfor v1.0.0
