@@ -34,7 +34,11 @@ func New(u *url.URL) (waitfor.Resource, error) {
 }
 
 func (s *Postgres) Test(ctx context.Context) error {
-	db, err := sql.Open(s.url.Scheme, strings.TrimPrefix(s.url.String(), Scheme+"://"))
+	// Always use "postgres" as the driver name for sql.Open, regardless of the URL scheme
+	// Remove the scheme and "://" from the URL to get the connection string
+	connStr := strings.TrimPrefix(s.url.String(), s.url.Scheme+"://")
+
+	db, err := sql.Open(Scheme, connStr)
 
 	if err != nil {
 		return err
